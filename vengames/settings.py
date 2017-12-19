@@ -17,6 +17,8 @@ secret_information = {}
 with open('./local/secret_information.txt', 'r') as r:
     lines = r.read().splitlines()
     secret_information['SECRET_KEY'] = lines[0]
+    secret_information['USER'] = lines[1]
+    secret_information['PASSWORD'] = lines[2]
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -82,8 +84,12 @@ WSGI_APPLICATION = 'vengames.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'vengamesdb',
+        'USER': secret_information['USER'],
+        'PASSWORD': secret_information['PASSWORD'],
+        'HOST': '127.0.0.1',
+        "PORT": '5432',
     }
 }
 
